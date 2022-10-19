@@ -1,120 +1,119 @@
 body {
-  margin: 2%;
   color: #1c0c59;
   font-family: "Poppins", sans-serif;
+  margin: 2%;
 }
 
 .weather-app {
   border: 1px solid #1c0c59;
+  border-radius: 2%;
 }
-
 .searchform {
-  margin-top: 12%;
+  margin-top: 10%;
 }
-
 .searchbar {
   border: 2px solid #f6eb9a;
   border-radius: 5px;
   height: 40px;
-  padding: 0;
   width: 300px;
 }
 .searchbar:focus {
   border-color: #5853bc;
   outline: none;
 }
-
 .searchbutton,
 .currentButton {
   border-color: #f6eb9a;
   border-radius: 5px;
   background-color: transparent;
-  margin: 3%;
+  margin: 10px 0 0 10px;
 }
-
 .currentButton {
-  margin: 0 auto;
+  margin-top: 15px;
 }
-
-.date {
-  margin: 3% 0 0 3%;
+.searchbutton:focus,
+.currentButton:focus {
+  border-color: #5853bc;
+  outline: none;
 }
-
-.card-body {
-  padding: 2%;
+.dateTime {
+  border: 1px solid #f6eb9a;
+  border-radius: 5px;
+  margin-top: 3%;
+  padding: 2% 0;
 }
-.main-weather-card {
+.mainWeatherCard {
   border-color: #f6eb9a;
   margin: 3% auto;
 }
-
-.city {
+.currentCity {
+  font-size: 40px;
+  margin-top: 8px;
   text-align: center;
 }
-
-.weather-details {
-  margin: 8% 10% 0;
-  font-size: 18px;
-}
-
-.main-weather-img {
-  width: 120px;
-  margin-top: 5%;
-}
-
-.sky-description {
-  margin: 8% auto 0;
+.weatherDetails {
   font-size: 20px;
+  margin: 20px 0 0 20px;
 }
-
+.mainWeatherImg {
+  margin-top: 5%;
+  width: 120px;
+}
+.skyDescription {
+  font-size: 20px;
+  margin-top: 10px;
+}
 .temperature {
-  font-size: 35px;
-  margin: 20% 15% 0;
+  font-size: 30px;
+  margin-top: 8px;
 }
 .tempFigure {
   font-size: 40px;
 }
-.days-weather-card {
+.feelsLikeTemperature {
+  font-size: 17px;
+}
+.daysWeatherCard {
   border-color: #f6eb9a;
   padding: 2%;
 }
-
 .day-2-img,
 .day-3-img,
 .day-4-img,
 .day-5-img,
 .day-6-img {
-  width: 80px;
   margin-bottom: 5%;
+  width: 80px;
 }
 .day-2-temp,
 .day-3-temp,
 .day-4-temp,
 .day-5-temp,
 .day-6-temp {
-  margin-bottom: 0;
   font-size: 20px;
+  margin-bottom: 0;
 }
 .day-2,
 .day-3,
 .day-4,
 .day-5,
 .day-6 {
-  margin-bottom: 0;
   font-size: 15px;
+  margin-bottom: 0;
 }
-.other-cities {
-  padding: 3%;
+.otherCities {
+  border: 1px solid #f6eb9a;
+  border-radius: 5px;
   font-size: 20px;
-  color: #1c0c59;
+  margin: 3% auto;
 }
 a {
   text-decoration: none;
-}
-
-a:visited {
   color: #5853bc;
 }
 a:hover {
   text-decoration: underline;
+}
+.myLink {
+  margin-bottom: 10px;
 }

@@ -55,7 +55,7 @@ function changeToCelcius(event) {
   let temperature = tempElement.innerHTML;
   temperature = Number(temperature);
   tempElement.innerHTML = Math.round(((temperature - 32) * 5) / 9);
-}
+} //add the changing wind to mph function, add feelsliketemp function
 let celciusButton = document.querySelector("#celcius-link");
 celciusButton.addEventListener("click", changeToCelcius);
 
