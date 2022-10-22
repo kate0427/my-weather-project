@@ -136,6 +136,36 @@ function showWeather(response) {
     );
 }
 
+function searchLisbon(event) {
+  event.preventDefault();
+  searchCity("lisbon");
+}
+document.querySelector("#city1-lisbon").addEventListener("click", searchLisbon);
+
+function searchParis(event) {
+  event.preventDefault();
+  searchCity("paris");
+}
+document.querySelector("#city2-paris").addEventListener("click", searchParis);
+
+function searchLondon(event) {
+  event.preventDefault();
+  searchCity("london");
+}
+document.querySelector("#city3-london").addEventListener("click", searchLondon);
+
+function searchWarsaw(event) {
+  event.preventDefault();
+  searchCity("warsaw");
+}
+document.querySelector("#city4-warsaw").addEventListener("click", searchWarsaw);
+
+function searchPrague(event) {
+  event.preventDefault();
+  searchCity("prague");
+}
+document.querySelector("#city5-prague").addEventListener("click", searchPrague);
+
 function getPosition(position) {
   let apiKey = "e80f735c22f9cc78cdfe65b74bebba0a";
   let lat = position.coords.latitude;

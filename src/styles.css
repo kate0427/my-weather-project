@@ -16,21 +16,22 @@ body {
   border-radius: 5px;
   height: 40px;
   width: 300px;
+  margin: 0 20px 20px 0;
 }
 .searchbar:focus {
   border-color: #5853bc;
   outline: none;
+}
+.searchbutton {
+  margin-bottom: 20px;
 }
 .searchbutton,
 .currentButton {
   border-color: #f6eb9a;
   border-radius: 5px;
   background-color: transparent;
-  margin: 10px 0 0 10px;
 }
-.currentButton {
-  margin-top: 15px;
-}
+
 .searchbutton:focus,
 .currentButton:focus {
   border-color: #5853bc;
