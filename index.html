@@ -49,11 +49,12 @@
         <div class="card-body">
           <div class="row">
             <div class="col">
-              <h1 class="card-title currentCity" id="current-city">Kyiv</h1>
+              <h1 class="card-title currentCity" id="current-city"></h1>
               <p class="card-text weatherDetails">
-                Humidity:<span id="humidity">0%</span>
+                Humidity:<span id="humidity"></span>
                 <br />
-                Wind:<span id="wind">0 km/h</span>
+                Wind:<span id="wind"></span
+                ><span id="wind-metrics"> km/h </span>
               </p>
             </div>
             <div class="col text-center">
@@ -66,17 +67,13 @@
             </div>
             <div class="col text-center">
               <p class="temperature">
-                <span class="tempFigure" id="temperature">0</span>
+                <span class="tempFigure" id="temperature"></span>
                 <a id="celcius-link" href="#">℃</a> |
                 <a id="fahrenheit-link" href="#">℉</a><span>*</span>
               </p>
               <p class="feelsLikeTemperature">
-                <span>*feels like: </span
-                ><span class="feelsLikeTempFigure" id="feel-like-temperature"
-                  >21</span
-                >
-                <a id="feels-like-celcius-link" href="#">℃</a> |
-                <a id="feels-like-fahrenheit-link" href="#">℉</a>
+                *feels like: <span id="feels-like-temperature"></span
+                ><span id="feels-like-metrics">℃</span>
               </p>
             </div>
           </div>

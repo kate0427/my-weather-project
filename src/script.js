@@ -38,16 +38,31 @@ function formatTime(time) {
 let currentTime = document.querySelector("#time");
 currentTime.innerHTML = formatTime(currentDate);
 
+function changeToMph(event) {
+  event.preventDefault();
+  let windElement = document.querySelector("#wind");
+  let windKm = windElement.innerHTML;
+  windKm = Number(windKm);
+  windElement.innerHTML = ` ${Math.round(windKm / 1.609)} `;
+  document.querySelector("#wind-metrics").innerHTML = `mph`;
+}
+
 function changeToFahrenheit(event) {
   event.preventDefault();
   let tempElement = document.querySelector("#temperature");
   let temperature = tempElement.innerHTML; //this is a string
   temperature = Number(temperature); //to convert to number
   tempElement.innerHTML = Math.round((temperature * 9) / 5 + 32);
+  let feelsLikeTempElement = document.querySelector("#feels-like-temperature");
+  let feelsLikeTemp = feelsLikeTempElement.innerHTML;
+  feelsLikeTemp = Number(feelsLikeTemp);
+  feelsLikeTempElement.innerHTML = Math.round((temperature * 9) / 5 + 32);
+  document.querySelector("#feels-like-metrics").innerHTML = `℉`;
 }
 
 let fahrenheitButton = document.querySelector("#fahrenheit-link");
 fahrenheitButton.addEventListener("click", changeToFahrenheit);
+fahrenheitButton.addEventListener("click", changeToMph);
 
 function changeToCelcius(event) {
   event.preventDefault();
@@ -55,9 +70,25 @@ function changeToCelcius(event) {
   let temperature = tempElement.innerHTML;
   temperature = Number(temperature);
   tempElement.innerHTML = Math.round(((temperature - 32) * 5) / 9);
-} //add the changing wind to mph function, add feelsliketemp function
+  let feelsLikeTempElement = document.querySelector("#feels-like-temperature");
+  let feelsLikeTemp = feelsLikeTempElement.innerHTML;
+  feelsLikeTemp = Number(feelsLikeTemp);
+  feelsLikeTempElement.innerHTML = Math.round(((temperature - 32) * 5) / 9);
+  document.querySelector("#feels-like-metrics").innerHTML = `℃`;
+}
+
+function changeToKmph(event) {
+  event.preventDefault();
+  let windElement = document.querySelector("#wind");
+  let windMph = windElement.innerHTML;
+  windMph = Number(windMph);
+  windElement.innerHTML = ` ${Math.round(windMph * 1.609)} `;
+  document.querySelector("#wind-metrics").innerHTML = `km/h`;
+}
+
 let celciusButton = document.querySelector("#celcius-link");
 celciusButton.addEventListener("click", changeToCelcius);
+celciusButton.addEventListener("click", changeToKmph);
 
 let searchForm = document.querySelector("#search-form");
 searchForm.addEventListener("submit", getInput);
@@ -80,12 +111,15 @@ function showWeather(response) {
   document.querySelector("#temperature").innerHTML = Math.round(
     response.data.main.temp
   );
+  document.querySelector("#feels-like-temperature").innerHTML = Math.round(
+    response.data.main.feels_like
+  );
   document.querySelector(
     "#humidity"
   ).innerHTML = ` ${response.data.main.humidity}%`;
   document.querySelector("#wind").innerHTML = ` ${Math.round(
     response.data.wind.speed
-  )} km/h`;
+  )}`;
   document.querySelector("#sky").innerHTML =
     response.data.weather[0].description;
 }
