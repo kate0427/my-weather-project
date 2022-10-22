@@ -83,14 +83,10 @@ body {
 .day4Img,
 .day5Img,
 .day6Img {
-  margin: 5% 0 5% 0;
+  margin: 3% 0 5% 0;
   width: 80px;
 }
-.day2Temp,
-.day3Temp,
-.day4Temp,
-.day5Temp,
-.day6Temp {
+.tempMetrics {
   font-size: 20px;
   margin-bottom: 0;
 }

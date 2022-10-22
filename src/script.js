@@ -38,10 +38,6 @@ function formatTime(time) {
 let currentTime = document.querySelector("#time");
 currentTime.innerHTML = formatTime(currentDate);
 
-let celciusButton = document.querySelector("#celcius-link");
-celciusButton.addEventListener("click", changeToCelcius);
-celciusButton.addEventListener("click", changeToKmph);
-
 function getPosition(position) {
   let apiKey = "e80f735c22f9cc78cdfe65b74bebba0a";
   let lat = position.coords.latitude;
@@ -109,19 +105,79 @@ function showWeather(response) {
 
 function show5daysWeather(response) {
   document.querySelector("#day2-temp").innerHTML = Math.round(
-    response.data.list[0].main.temp
+    response.data.list[7].main.temp
   );
   document
     .querySelector("#day2-img")
     .setAttribute(
       "src",
-      `http://openweathermap.org/img/wn/${response.data.list[0].weather[0].icon}@2x.png`
+      `http://openweathermap.org/img/wn/${response.data.list[7].weather[0].icon}@2x.png`
     );
   document
     .querySelector("#day2-img")
     .setAttribute(
       "alt",
-      `http://openweathermap.org/img/wn/${response.data.list[0].weather[0].description}@2x.png`
+      `http://openweathermap.org/img/wn/${response.data.list[7].weather[0].description}@2x.png`
+    );
+  document.querySelector("#day3-temp").innerHTML = Math.round(
+    response.data.list[15].main.temp
+  );
+  document
+    .querySelector("#day3-img")
+    .setAttribute(
+      "src",
+      `http://openweathermap.org/img/wn/${response.data.list[15].weather[0].icon}@2x.png`
+    );
+  document
+    .querySelector("#day3-img")
+    .setAttribute(
+      "alt",
+      `http://openweathermap.org/img/wn/${response.data.list[15].weather[0].description}@2x.png`
+    );
+  document.querySelector("#day4-temp").innerHTML = Math.round(
+    response.data.list[23].main.temp
+  );
+  document
+    .querySelector("#day4-img")
+    .setAttribute(
+      "src",
+      `http://openweathermap.org/img/wn/${response.data.list[23].weather[0].icon}@2x.png`
+    );
+  document
+    .querySelector("#day4-img")
+    .setAttribute(
+      "alt",
+      `http://openweathermap.org/img/wn/${response.data.list[23].weather[0].description}@2x.png`
+    );
+  document.querySelector("#day5-temp").innerHTML = Math.round(
+    response.data.list[31].main.temp
+  );
+  document
+    .querySelector("#day5-img")
+    .setAttribute(
+      "src",
+      `http://openweathermap.org/img/wn/${response.data.list[31].weather[0].icon}@2x.png`
+    );
+  document
+    .querySelector("#day5-img")
+    .setAttribute(
+      "alt",
+      `http://openweathermap.org/img/wn/${response.data.list[31].weather[0].description}@2x.png`
+    );
+  document.querySelector("#day6-temp").innerHTML = Math.round(
+    response.data.list[39].main.temp
+  );
+  document
+    .querySelector("#day6-img")
+    .setAttribute(
+      "src",
+      `http://openweathermap.org/img/wn/${response.data.list[39].weather[0].icon}@2x.png`
+    );
+  document
+    .querySelector("#day6-img")
+    .setAttribute(
+      "alt",
+      `http://openweathermap.org/img/wn/${response.data.list[39].weather[0].description}@2x.png`
     );
 }
 
@@ -155,15 +211,6 @@ function searchPrague(event) {
 }
 document.querySelector("#city5-prague").addEventListener("click", searchPrague);
 
-function changeToMph(event) {
-  event.preventDefault();
-  let windElement = document.querySelector("#wind");
-  let windKm = windElement.innerHTML;
-  windKm = Number(windKm);
-  windElement.innerHTML = ` ${Math.round(windKm / 1.609)} `;
-  document.querySelector("#wind-metrics").innerHTML = `mph`;
-}
-
 function changeToFahrenheit(event) {
   event.preventDefault();
   let tempElement = document.querySelector("#temperature");
@@ -177,9 +224,28 @@ function changeToFahrenheit(event) {
   document.querySelector("#feels-like-metrics").innerHTML = `℉`;
 }
 
+function changeToMph(event) {
+  event.preventDefault();
+  let windElement = document.querySelector("#wind");
+  let windKm = windElement.innerHTML;
+  windKm = Number(windKm);
+  windElement.innerHTML = ` ${Math.round(windKm / 1.609)} `;
+  document.querySelector("#wind-metrics").innerHTML = `mph`;
+}
+
+function change5DaystoFahrenheit(event) {
+  event.preventDefault();
+  let tempDays = document.querySelector("#day2-temp");
+  let tempDaysCelcius = tempDays.innerHTML;
+  tempDaysCelcius = Number(tempDaysCelcius);
+  tempDays.innerHTML = Math.round((tempDaysCelcius * 9) / 5 + 32);
+  document.querySelector("#temp-metrics").innerHTML = `℉`;
+}
+
 let fahrenheitButton = document.querySelector("#fahrenheit-link");
 fahrenheitButton.addEventListener("click", changeToFahrenheit);
 fahrenheitButton.addEventListener("click", changeToMph);
+fahrenheitButton.addEventListener("click", change5DaystoFahrenheit);
 
 function changeToCelcius(event) {
   event.preventDefault();
@@ -191,7 +257,7 @@ function changeToCelcius(event) {
   let feelsLikeTemp = feelsLikeTempElement.innerHTML;
   feelsLikeTemp = Number(feelsLikeTemp);
   feelsLikeTempElement.innerHTML = Math.round(((temperature - 32) * 5) / 9);
-  document.querySelector("#feels-like-metrics").innerHTML = `℃`;
+  document.querySelector("#temp-metrics").innerHTML = `℃`;
 }
 
 function changeToKmph(event) {
@@ -203,4 +269,17 @@ function changeToKmph(event) {
   document.querySelector("#wind-metrics").innerHTML = `km/h`;
 }
 
+function change5DaystoCelcius(event) {
+  event.preventDefault();
+  let tempDays = document.querySelector("#day2-temp");
+  let tempDaysFahrenheit = tempDays.innerHTML;
+  tempDaysFahrenheit = Number(tempDaysFahrenheit);
+  tempDays.innerHTML = Math.round(((tempDaysFahrenheit - 32) * 5) / 9);
+  document.querySelector("#5days-temp-metrics").innerHTML = `℃`;
+}
+
+let celciusButton = document.querySelector("#celcius-link");
+celciusButton.addEventListener("click", changeToCelcius);
+celciusButton.addEventListener("click", changeToKmph);
+celciusButton.addEventListener("click", change5DaystoCelcius);
 searchCity("Kyiv");
