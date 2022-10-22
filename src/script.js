@@ -73,20 +73,28 @@ function searchCity(city) {
   let apiURL5days = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=${units}`;
   axios.get(`${apiURL5days}`).then(show5daysWeather);
 }
+let celciusTemperature = null;
+let feelsLikeTemperature = null;
+let windKmH = null;
+let tempDay2 = null;
+let tempDay3 = null;
+let tempDay4 = null;
+let tempDay5 = null;
+let tempDay6 = null;
+
 function showWeather(response) {
   document.querySelector("#current-city").innerHTML = response.data.name;
-  document.querySelector("#temperature").innerHTML = Math.round(
-    response.data.main.temp
-  );
-  document.querySelector("#feels-like-temperature").innerHTML = Math.round(
-    response.data.main.feels_like
-  );
+  celciusTemperature = response.data.main.temp;
+  document.querySelector("#temperature").innerHTML =
+    Math.round(celciusTemperature);
+  feelsLikeTemperature = response.data.main.feels_like;
+  document.querySelector("#feels-like-temperature").innerHTML =
+    Math.round(feelsLikeTemperature);
   document.querySelector(
     "#humidity"
   ).innerHTML = ` ${response.data.main.humidity}%`;
-  document.querySelector("#wind").innerHTML = ` ${Math.round(
-    response.data.wind.speed
-  )}`;
+  windKmH = response.data.wind.speed;
+  document.querySelector("#wind").innerHTML = ` ${Math.round(windKmH)}`;
   document.querySelector("#sky").innerHTML =
     response.data.weather[0].description;
   document
@@ -104,9 +112,8 @@ function showWeather(response) {
 }
 
 function show5daysWeather(response) {
-  document.querySelector("#day2-temp").innerHTML = Math.round(
-    response.data.list[7].main.temp
-  );
+  tempDay2 = response.data.list[7].main.temp;
+  document.querySelector("#day2-temp").innerHTML = Math.round(tempDay2);
   document
     .querySelector("#day2-img")
     .setAttribute(
@@ -119,9 +126,8 @@ function show5daysWeather(response) {
       "alt",
       `http://openweathermap.org/img/wn/${response.data.list[7].weather[0].description}@2x.png`
     );
-  document.querySelector("#day3-temp").innerHTML = Math.round(
-    response.data.list[15].main.temp
-  );
+  tempDay3 = response.data.list[15].main.temp;
+  document.querySelector("#day3-temp").innerHTML = Math.round(tempDay3);
   document
     .querySelector("#day3-img")
     .setAttribute(
@@ -134,9 +140,8 @@ function show5daysWeather(response) {
       "alt",
       `http://openweathermap.org/img/wn/${response.data.list[15].weather[0].description}@2x.png`
     );
-  document.querySelector("#day4-temp").innerHTML = Math.round(
-    response.data.list[23].main.temp
-  );
+  tempDay4 = response.data.list[23].main.temp;
+  document.querySelector("#day4-temp").innerHTML = Math.round(tempDay4);
   document
     .querySelector("#day4-img")
     .setAttribute(
@@ -149,9 +154,8 @@ function show5daysWeather(response) {
       "alt",
       `http://openweathermap.org/img/wn/${response.data.list[23].weather[0].description}@2x.png`
     );
-  document.querySelector("#day5-temp").innerHTML = Math.round(
-    response.data.list[31].main.temp
-  );
+  tempDay5 = response.data.list[31].main.temp;
+  document.querySelector("#day5-temp").innerHTML = Math.round(tempDay5);
   document
     .querySelector("#day5-img")
     .setAttribute(
@@ -164,9 +168,8 @@ function show5daysWeather(response) {
       "alt",
       `http://openweathermap.org/img/wn/${response.data.list[31].weather[0].description}@2x.png`
     );
-  document.querySelector("#day6-temp").innerHTML = Math.round(
-    response.data.list[39].main.temp
-  );
+  tempDay6 = response.data.list[39].main.temp;
+  document.querySelector("#day6-temp").innerHTML = Math.round(tempDay6);
   document
     .querySelector("#day6-img")
     .setAttribute(
@@ -219,43 +222,45 @@ document.querySelector("#city5-prague").addEventListener("click", searchPrague);
 function changeToFahrenheit(event) {
   event.preventDefault();
   let tempElement = document.querySelector("#temperature");
-  let temperature = Number(tempElement.innerHTML);
-  tempElement.innerHTML = Math.round((temperature * 9) / 5 + 32);
+  tempElement.innerHTML = Math.round((celciusTemperature * 9) / 5 + 32);
   let feelsLikeTempElement = document.querySelector("#feels-like-temperature");
-  let feelsLikeTemp = Number(feelsLikeTempElement.innerHTML);
-  feelsLikeTempElement.innerHTML = Math.round((feelsLikeTemp * 9) / 5 + 32);
+  feelsLikeTempElement.innerHTML = Math.round(
+    (feelsLikeTemperature * 9) / 5 + 32
+  );
   document.querySelector("#feels-like-metrics").innerHTML = `℉`;
+  celciusButton.classList.remove("active");
+  fahrenheitButton.classList.add("active");
 }
 
 function changeToMph(event) {
   event.preventDefault();
-  let windElement = document.querySelector("#wind");
-  let windKm = Number(windElement.innerHTML);
-  windElement.innerHTML = ` ${Math.round(windKm / 1.609)} `;
+  document.querySelector("#wind").innerHTML = ` ${Math.round(
+    windKmH / 1.609
+  )} `;
   document.querySelector("#wind-metrics").innerHTML = `mph`;
 }
 
 function change5DaystoFahrenheit(event) {
   event.preventDefault();
-  let tempDays2 = document.querySelector("#day2-temp");
-  let tempDaysCelcius2 = Number(tempDays2.innerHTML);
-  tempDays2.innerHTML = Math.round((tempDaysCelcius2 * 9) / 5 + 32);
+  document.querySelector("#day2-temp").innerHTML = Math.round(
+    (tempDay2 * 9) / 5 + 32
+  );
   document.querySelector("#temp-metrics2").innerHTML = `℉`;
-  let tempDays3 = document.querySelector("#day3-temp");
-  let tempDaysCelcius3 = Number(tempDays3.innerHTML);
-  tempDays3.innerHTML = Math.round((tempDaysCelcius3 * 9) / 5 + 32);
+  document.querySelector("#day3-temp").innerHTML = Math.round(
+    (tempDay3 * 9) / 5 + 32
+  );
   document.querySelector("#temp-metrics3").innerHTML = `℉`;
-  let tempDays4 = document.querySelector("#day4-temp");
-  let tempDaysCelcius4 = Number(tempDays4.innerHTML);
-  tempDays4.innerHTML = Math.round((tempDaysCelcius4 * 9) / 5 + 32);
+  document.querySelector("#day4-temp").innerHTML = Math.round(
+    (tempDay4 * 9) / 5 + 32
+  );
   document.querySelector("#temp-metrics4").innerHTML = `℉`;
-  let tempDays5 = document.querySelector("#day5-temp");
-  let tempDaysCelcius5 = Number(tempDays5.innerHTML);
-  tempDays5.innerHTML = Math.round((tempDaysCelcius5 * 9) / 5 + 32);
+  document.querySelector("#day5-temp").innerHTML = Math.round(
+    (tempDay5 * 9) / 5 + 32
+  );
   document.querySelector("#temp-metrics5").innerHTML = `℉`;
-  let tempDays6 = document.querySelector("#day6-temp");
-  let tempDaysCelcius6 = Number(tempDays6.innerHTML);
-  tempDays6.innerHTML = Math.round((tempDaysCelcius6 * 9) / 5 + 32);
+  document.querySelector("#day6-temp").innerHTML = Math.round(
+    (tempDay6 * 9) / 5 + 32
+  );
   document.querySelector("#temp-metrics6").innerHTML = `℉`;
 }
 
@@ -266,44 +271,32 @@ fahrenheitButton.addEventListener("click", change5DaystoFahrenheit);
 
 function changeToCelcius(event) {
   event.preventDefault();
-  let tempElement = document.querySelector("#temperature");
-  let temperature = Number(tempElement.innerHTML);
-  tempElement.innerHTML = Math.round(((temperature - 32) * 5) / 9);
-  let feelsLikeTempElement = document.querySelector("#feels-like-temperature");
-  let feelsLikeTemp = Number(feelsLikeTempElement.innerHTML);
-  feelsLikeTempElement.innerHTML = Math.round(((feelsLikeTemp - 32) * 5) / 9);
+  document.querySelector("#temperature").innerHTML =
+    Math.round(celciusTemperature);
+  document.querySelector("#feels-like-temperature").innerHTML =
+    Math.round(feelsLikeTemperature);
   document.querySelector("#feels-like-metrics").innerHTML = `℃`;
+  celciusButton.classList.add("active");
+  fahrenheitButton.classList.remove("active");
 }
 
 function changeToKmph(event) {
   event.preventDefault();
-  let windElement = document.querySelector("#wind");
-  let windMph = Number(windElement.innerHTML);
-  windElement.innerHTML = ` ${Math.round(windMph * 1.609)} `;
+  document.querySelector("#wind").innerHTML = ` ${Math.round(windKmH)} `;
   document.querySelector("#wind-metrics").innerHTML = `km/h`;
 }
 
 function change5DaystoCelcius(event) {
   event.preventDefault();
-  let tempDays2 = document.querySelector("#day2-temp");
-  let tempDaysCelcius2 = Number(tempDays2.innerHTML);
-  tempDays2.innerHTML = Math.round(((tempDaysCelcius2 - 32) * 5) / 9);
+  document.querySelector("#day2-temp").innerHTML = Math.round(tempDay2);
   document.querySelector("#temp-metrics2").innerHTML = `℃`;
-  let tempDays3 = document.querySelector("#day3-temp");
-  let tempDaysCelcius3 = Number(tempDays3.innerHTML);
-  tempDays3.innerHTML = Math.round(((tempDaysCelcius3 - 32) * 5) / 9);
+  document.querySelector("#day3-temp").innerHTML = Math.round(tempDay3);
   document.querySelector("#temp-metrics3").innerHTML = `℃`;
-  let tempDays4 = document.querySelector("#day4-temp");
-  let tempDaysCelcius4 = Number(tempDays4.innerHTML);
-  tempDays4.innerHTML = Math.round(((tempDaysCelcius4 - 32) * 5) / 9);
+  document.querySelector("#day4-temp").innerHTML = Math.round(tempDay4);
   document.querySelector("#temp-metrics4").innerHTML = `℃`;
-  let tempDays5 = document.querySelector("#day5-temp");
-  let tempDaysCelcius5 = Number(tempDays5.innerHTML);
-  tempDays5.innerHTML = Math.round(((tempDaysCelcius5 - 32) * 5) / 9);
+  document.querySelector("#day5-temp").innerHTML = Math.round(tempDay5);
   document.querySelector("#temp-metrics5").innerHTML = `℃`;
-  let tempDays6 = document.querySelector("#day6-temp");
-  let tempDaysCelcius6 = Number(tempDays6.innerHTML);
-  tempDays6.innerHTML = Math.round(((tempDaysCelcius6 - 32) * 5) / 9);
+  document.querySelector("#day6-temp").innerHTML = Math.round(tempDay6);
   document.querySelector("#temp-metrics6").innerHTML = `℃`;
 }
 
