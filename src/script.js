@@ -38,6 +38,123 @@ function formatTime(time) {
 let currentTime = document.querySelector("#time");
 currentTime.innerHTML = formatTime(currentDate);
 
+let celciusButton = document.querySelector("#celcius-link");
+celciusButton.addEventListener("click", changeToCelcius);
+celciusButton.addEventListener("click", changeToKmph);
+
+function getPosition(position) {
+  let apiKey = "e80f735c22f9cc78cdfe65b74bebba0a";
+  let lat = position.coords.latitude;
+  let lon = position.coords.longitude;
+  let units = "metric";
+  let apiLink = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=${units}`;
+  axios.get(apiLink).then(showWeather);
+}
+
+function getLocation(event) {
+  event.preventDefault();
+  navigator.geolocation.getCurrentPosition(getPosition);
+}
+
+let locationButton = document.querySelector("#current-location");
+locationButton.addEventListener("click", getLocation);
+
+let searchForm = document.querySelector("#search-form");
+searchForm.addEventListener("submit", getInput);
+
+function getInput(event) {
+  event.preventDefault();
+  let searchInput = document.querySelector("#search-input");
+  let city = `${searchInput.value}`;
+  searchCity(city);
+}
+
+function searchCity(city) {
+  let apiKey = "e80f735c22f9cc78cdfe65b74bebba0a";
+  let units = "metric";
+  let apiURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=${units}`;
+  axios.get(`${apiURL}`).then(showWeather);
+  let apiURL5days = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=${units}`;
+  axios.get(`${apiURL5days}`).then(show5daysWeather);
+}
+function showWeather(response) {
+  document.querySelector("#current-city").innerHTML = response.data.name;
+  document.querySelector("#temperature").innerHTML = Math.round(
+    response.data.main.temp
+  );
+  document.querySelector("#feels-like-temperature").innerHTML = Math.round(
+    response.data.main.feels_like
+  );
+  document.querySelector(
+    "#humidity"
+  ).innerHTML = ` ${response.data.main.humidity}%`;
+  document.querySelector("#wind").innerHTML = ` ${Math.round(
+    response.data.wind.speed
+  )}`;
+  document.querySelector("#sky").innerHTML =
+    response.data.weather[0].description;
+  document
+    .querySelector("#current-icon")
+    .setAttribute(
+      "src",
+      `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
+    );
+  document
+    .querySelector("#current-icon")
+    .setAttribute(
+      "alt",
+      `http://openweathermap.org/img/wn/${response.data.weather[0].description}@2x.png`
+    );
+}
+
+function show5daysWeather(response) {
+  document.querySelector("#day2-temp").innerHTML = Math.round(
+    response.data.list[0].main.temp
+  );
+  document
+    .querySelector("#day2-img")
+    .setAttribute(
+      "src",
+      `http://openweathermap.org/img/wn/${response.data.list[0].weather[0].icon}@2x.png`
+    );
+  document
+    .querySelector("#day2-img")
+    .setAttribute(
+      "alt",
+      `http://openweathermap.org/img/wn/${response.data.list[0].weather[0].description}@2x.png`
+    );
+}
+
+function searchLisbon(event) {
+  event.preventDefault();
+  searchCity("lisbon");
+}
+document.querySelector("#city1-lisbon").addEventListener("click", searchLisbon);
+
+function searchParis(event) {
+  event.preventDefault();
+  searchCity("paris");
+}
+document.querySelector("#city2-paris").addEventListener("click", searchParis);
+
+function searchLondon(event) {
+  event.preventDefault();
+  searchCity("london");
+}
+document.querySelector("#city3-london").addEventListener("click", searchLondon);
+
+function searchWarsaw(event) {
+  event.preventDefault();
+  searchCity("warsaw");
+}
+document.querySelector("#city4-warsaw").addEventListener("click", searchWarsaw);
+
+function searchPrague(event) {
+  event.preventDefault();
+  searchCity("prague");
+}
+document.querySelector("#city5-prague").addEventListener("click", searchPrague);
+
 function changeToMph(event) {
   event.preventDefault();
   let windElement = document.querySelector("#wind");
@@ -85,102 +202,5 @@ function changeToKmph(event) {
   windElement.innerHTML = ` ${Math.round(windMph * 1.609)} `;
   document.querySelector("#wind-metrics").innerHTML = `km/h`;
 }
-
-let celciusButton = document.querySelector("#celcius-link");
-celciusButton.addEventListener("click", changeToCelcius);
-celciusButton.addEventListener("click", changeToKmph);
-
-let searchForm = document.querySelector("#search-form");
-searchForm.addEventListener("submit", getInput);
-
-function getInput(event) {
-  event.preventDefault();
-  let searchInput = document.querySelector("#search-input");
-  let city = `${searchInput.value}`;
-  searchCity(city);
-}
-
-function searchCity(city) {
-  let apiKey = "e80f735c22f9cc78cdfe65b74bebba0a";
-  let units = "metric";
-  let apiURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=${units}`;
-  axios.get(`${apiURL}`).then(showWeather);
-}
-function showWeather(response) {
-  document.querySelector("#current-city").innerHTML = response.data.name;
-  document.querySelector("#temperature").innerHTML = Math.round(
-    response.data.main.temp
-  );
-  document.querySelector("#feels-like-temperature").innerHTML = Math.round(
-    response.data.main.feels_like
-  );
-  document.querySelector(
-    "#humidity"
-  ).innerHTML = ` ${response.data.main.humidity}%`;
-  document.querySelector("#wind").innerHTML = ` ${Math.round(
-    response.data.wind.speed
-  )}`;
-  document.querySelector("#sky").innerHTML =
-    response.data.weather[0].description;
-  document
-    .querySelector("#current-icon")
-    .setAttribute(
-      "src",
-      `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
-    );
-  document
-    .querySelector("#current-icon")
-    .setAttribute(
-      "alt",
-      `http://openweathermap.org/img/wn/${response.data.weather[0].description}@2x.png`
-    );
-}
-
-function searchLisbon(event) {
-  event.preventDefault();
-  searchCity("lisbon");
-}
-document.querySelector("#city1-lisbon").addEventListener("click", searchLisbon);
-
-function searchParis(event) {
-  event.preventDefault();
-  searchCity("paris");
-}
-document.querySelector("#city2-paris").addEventListener("click", searchParis);
-
-function searchLondon(event) {
-  event.preventDefault();
-  searchCity("london");
-}
-document.querySelector("#city3-london").addEventListener("click", searchLondon);
-
-function searchWarsaw(event) {
-  event.preventDefault();
-  searchCity("warsaw");
-}
-document.querySelector("#city4-warsaw").addEventListener("click", searchWarsaw);
-
-function searchPrague(event) {
-  event.preventDefault();
-  searchCity("prague");
-}
-document.querySelector("#city5-prague").addEventListener("click", searchPrague);
-
-function getPosition(position) {
-  let apiKey = "e80f735c22f9cc78cdfe65b74bebba0a";
-  let lat = position.coords.latitude;
-  let lon = position.coords.longitude;
-  let units = "metric";
-  let apiLink = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=${units}`;
-  axios.get(apiLink).then(showWeather);
-}
-
-function getLocation(event) {
-  event.preventDefault();
-  navigator.geolocation.getCurrentPosition(getPosition);
-}
-
-let locationButton = document.querySelector("#current-location");
-locationButton.addEventListener("click", getLocation);
 
 searchCity("Kyiv");

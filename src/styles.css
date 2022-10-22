@@ -76,37 +76,31 @@ body {
 }
 .daysWeatherCard {
   border-color: #f6eb9a;
-  padding: 2%;
+  padding: 1% 0 1% 0;
 }
-.day-2-img,
-.day-3-img,
-.day-4-img,
-.day-5-img,
-.day-6-img {
-  margin-bottom: 5%;
+.day2Img,
+.day3Img,
+.day4Img,
+.day5Img,
+.day6Img {
+  margin: 5% 0 5% 0;
   width: 80px;
 }
-.day-2-temp,
-.day-3-temp,
-.day-4-temp,
-.day-5-temp,
-.day-6-temp {
+.day2Temp,
+.day3Temp,
+.day4Temp,
+.day5Temp,
+.day6Temp {
   font-size: 20px;
   margin-bottom: 0;
 }
-.day-2,
-.day-3,
-.day-4,
-.day-5,
-.day-6 {
-  font-size: 15px;
-  margin-bottom: 0;
-}
+
 .otherCities {
   border: 1px solid #f6eb9a;
   border-radius: 5px;
   font-size: 20px;
   margin: 3% auto;
+  padding: 1% 0 1% 0;
 }
 a {
   text-decoration: none;
