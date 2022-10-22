@@ -184,62 +184,79 @@ function show5daysWeather(response) {
 function searchLisbon(event) {
   event.preventDefault();
   searchCity("lisbon");
+  document.querySelector("#search-input").setAttribute("value", "Lisbon");
 }
 document.querySelector("#city1-lisbon").addEventListener("click", searchLisbon);
 
 function searchParis(event) {
   event.preventDefault();
   searchCity("paris");
+  document.querySelector("#search-input").setAttribute("value", "Paris");
 }
 document.querySelector("#city2-paris").addEventListener("click", searchParis);
 
 function searchLondon(event) {
   event.preventDefault();
   searchCity("london");
+  document.querySelector("#search-input").setAttribute("value", "London");
 }
 document.querySelector("#city3-london").addEventListener("click", searchLondon);
 
 function searchWarsaw(event) {
   event.preventDefault();
   searchCity("warsaw");
+  document.querySelector("#search-input").setAttribute("value", "Warsaw");
 }
 document.querySelector("#city4-warsaw").addEventListener("click", searchWarsaw);
 
 function searchPrague(event) {
   event.preventDefault();
   searchCity("prague");
+  document.querySelector("#search-input").setAttribute("value", "Prague");
 }
 document.querySelector("#city5-prague").addEventListener("click", searchPrague);
 
 function changeToFahrenheit(event) {
   event.preventDefault();
   let tempElement = document.querySelector("#temperature");
-  let temperature = tempElement.innerHTML; //this is a string
-  temperature = Number(temperature); //to convert to number
+  let temperature = Number(tempElement.innerHTML);
   tempElement.innerHTML = Math.round((temperature * 9) / 5 + 32);
   let feelsLikeTempElement = document.querySelector("#feels-like-temperature");
-  let feelsLikeTemp = feelsLikeTempElement.innerHTML;
-  feelsLikeTemp = Number(feelsLikeTemp);
-  feelsLikeTempElement.innerHTML = Math.round((temperature * 9) / 5 + 32);
+  let feelsLikeTemp = Number(feelsLikeTempElement.innerHTML);
+  feelsLikeTempElement.innerHTML = Math.round((feelsLikeTemp * 9) / 5 + 32);
   document.querySelector("#feels-like-metrics").innerHTML = `℉`;
 }
 
 function changeToMph(event) {
   event.preventDefault();
   let windElement = document.querySelector("#wind");
-  let windKm = windElement.innerHTML;
-  windKm = Number(windKm);
+  let windKm = Number(windElement.innerHTML);
   windElement.innerHTML = ` ${Math.round(windKm / 1.609)} `;
   document.querySelector("#wind-metrics").innerHTML = `mph`;
 }
 
 function change5DaystoFahrenheit(event) {
   event.preventDefault();
-  let tempDays = document.querySelector("#day2-temp");
-  let tempDaysCelcius = tempDays.innerHTML;
-  tempDaysCelcius = Number(tempDaysCelcius);
-  tempDays.innerHTML = Math.round((tempDaysCelcius * 9) / 5 + 32);
-  document.querySelector("#temp-metrics").innerHTML = `℉`;
+  let tempDays2 = document.querySelector("#day2-temp");
+  let tempDaysCelcius2 = Number(tempDays2.innerHTML);
+  tempDays2.innerHTML = Math.round((tempDaysCelcius2 * 9) / 5 + 32);
+  document.querySelector("#temp-metrics2").innerHTML = `℉`;
+  let tempDays3 = document.querySelector("#day3-temp");
+  let tempDaysCelcius3 = Number(tempDays3.innerHTML);
+  tempDays3.innerHTML = Math.round((tempDaysCelcius3 * 9) / 5 + 32);
+  document.querySelector("#temp-metrics3").innerHTML = `℉`;
+  let tempDays4 = document.querySelector("#day4-temp");
+  let tempDaysCelcius4 = Number(tempDays4.innerHTML);
+  tempDays4.innerHTML = Math.round((tempDaysCelcius4 * 9) / 5 + 32);
+  document.querySelector("#temp-metrics4").innerHTML = `℉`;
+  let tempDays5 = document.querySelector("#day5-temp");
+  let tempDaysCelcius5 = Number(tempDays5.innerHTML);
+  tempDays5.innerHTML = Math.round((tempDaysCelcius5 * 9) / 5 + 32);
+  document.querySelector("#temp-metrics5").innerHTML = `℉`;
+  let tempDays6 = document.querySelector("#day6-temp");
+  let tempDaysCelcius6 = Number(tempDays6.innerHTML);
+  tempDays6.innerHTML = Math.round((tempDaysCelcius6 * 9) / 5 + 32);
+  document.querySelector("#temp-metrics6").innerHTML = `℉`;
 }
 
 let fahrenheitButton = document.querySelector("#fahrenheit-link");
@@ -250,36 +267,49 @@ fahrenheitButton.addEventListener("click", change5DaystoFahrenheit);
 function changeToCelcius(event) {
   event.preventDefault();
   let tempElement = document.querySelector("#temperature");
-  let temperature = tempElement.innerHTML;
-  temperature = Number(temperature);
+  let temperature = Number(tempElement.innerHTML);
   tempElement.innerHTML = Math.round(((temperature - 32) * 5) / 9);
   let feelsLikeTempElement = document.querySelector("#feels-like-temperature");
-  let feelsLikeTemp = feelsLikeTempElement.innerHTML;
-  feelsLikeTemp = Number(feelsLikeTemp);
-  feelsLikeTempElement.innerHTML = Math.round(((temperature - 32) * 5) / 9);
-  document.querySelector("#temp-metrics").innerHTML = `℃`;
+  let feelsLikeTemp = Number(feelsLikeTempElement.innerHTML);
+  feelsLikeTempElement.innerHTML = Math.round(((feelsLikeTemp - 32) * 5) / 9);
+  document.querySelector("#feels-like-metrics").innerHTML = `℃`;
 }
 
 function changeToKmph(event) {
   event.preventDefault();
   let windElement = document.querySelector("#wind");
-  let windMph = windElement.innerHTML;
-  windMph = Number(windMph);
+  let windMph = Number(windElement.innerHTML);
   windElement.innerHTML = ` ${Math.round(windMph * 1.609)} `;
   document.querySelector("#wind-metrics").innerHTML = `km/h`;
 }
 
 function change5DaystoCelcius(event) {
   event.preventDefault();
-  let tempDays = document.querySelector("#day2-temp");
-  let tempDaysFahrenheit = tempDays.innerHTML;
-  tempDaysFahrenheit = Number(tempDaysFahrenheit);
-  tempDays.innerHTML = Math.round(((tempDaysFahrenheit - 32) * 5) / 9);
-  document.querySelector("#5days-temp-metrics").innerHTML = `℃`;
+  let tempDays2 = document.querySelector("#day2-temp");
+  let tempDaysCelcius2 = Number(tempDays2.innerHTML);
+  tempDays2.innerHTML = Math.round(((tempDaysCelcius2 - 32) * 5) / 9);
+  document.querySelector("#temp-metrics2").innerHTML = `℃`;
+  let tempDays3 = document.querySelector("#day3-temp");
+  let tempDaysCelcius3 = Number(tempDays3.innerHTML);
+  tempDays3.innerHTML = Math.round(((tempDaysCelcius3 - 32) * 5) / 9);
+  document.querySelector("#temp-metrics3").innerHTML = `℃`;
+  let tempDays4 = document.querySelector("#day4-temp");
+  let tempDaysCelcius4 = Number(tempDays4.innerHTML);
+  tempDays4.innerHTML = Math.round(((tempDaysCelcius4 - 32) * 5) / 9);
+  document.querySelector("#temp-metrics4").innerHTML = `℃`;
+  let tempDays5 = document.querySelector("#day5-temp");
+  let tempDaysCelcius5 = Number(tempDays5.innerHTML);
+  tempDays5.innerHTML = Math.round(((tempDaysCelcius5 - 32) * 5) / 9);
+  document.querySelector("#temp-metrics5").innerHTML = `℃`;
+  let tempDays6 = document.querySelector("#day6-temp");
+  let tempDaysCelcius6 = Number(tempDays6.innerHTML);
+  tempDays6.innerHTML = Math.round(((tempDaysCelcius6 - 32) * 5) / 9);
+  document.querySelector("#temp-metrics6").innerHTML = `℃`;
 }
 
 let celciusButton = document.querySelector("#celcius-link");
 celciusButton.addEventListener("click", changeToCelcius);
 celciusButton.addEventListener("click", changeToKmph);
 celciusButton.addEventListener("click", change5DaystoCelcius);
+
 searchCity("Kyiv");
