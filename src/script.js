@@ -70,8 +70,6 @@ function searchCity(city) {
   let units = "metric";
   let apiURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=${units}`;
   axios.get(`${apiURL}`).then(showWeather);
-  // let apiURL5days = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=${units}`;
-  // axios.get(apiURL5days).then(show5daysWeather);
 }
 
 function getDaysForecast(coordinates) {
@@ -134,7 +132,7 @@ function displayDaysWeather(response) {
                 forecastDay.weather[0].description
               }" src="http://openweathermap.org/img/wn/${
           forecastDay.weather[0].icon
-        }@2x.png" id="day2-img" />
+        }@2x.png" />
               <p class="daysTemperature">
                 <span class="daysTempMax" id="day2-temp">${Math.round(
                   forecastDay.temp.max
@@ -151,23 +149,6 @@ function displayDaysWeather(response) {
   daysWeather.innerHTML = daysWeatherHTML;
 }
 
-// function show5daysWeather(response) {
-//   tempDay2 = response.data.list[7].main.temp;
-//   document.querySelector("#day2-temp").innerHTML = `${Math.round(tempDay2)}°`;
-//   document
-//     .querySelector("#day2-img")
-//     .setAttribute(
-//       "src",
-//       `http://openweathermap.org/img/wn/${response.data.list[7].weather[0].icon}@2x.png`
-//     );
-//   document
-//     .querySelector("#day2-img")
-//     .setAttribute(
-//       "alt",
-//       `http://openweathermap.org/img/wn/${response.data.list[7].weather[0].description}@2x.png`
-//     );
-// }
-
 function displayCitiesLink(city) {
   let citiesLinks = document.querySelector("#cities-link");
   let cities = ["Lisbon", "Paris", "London", "Warsaw", "Prague"];
@@ -181,45 +162,17 @@ function displayCitiesLink(city) {
 
   citiesLinksHTML = citiesLinksHTML + `</div>`;
   citiesLinks.innerHTML = citiesLinksHTML;
+
+  cities.forEach(function (city) {
+    function searchCities(event) {
+      event.preventDefault();
+      searchCity(city);
+      document.querySelector("#search-input").setAttribute("value", `${city}`);
+    }
+    document.querySelector(`#${city}`).addEventListener("click", searchCities);
+  });
 }
 displayCitiesLink();
-
-//cities function
-
-// function searchLisbon(event) {
-//   event.preventDefault();
-//   searchCity("lisbon");
-//   document.querySelector("#search-input").setAttribute("value", "Lisbon");
-// }
-// document.querySelector("#lisbon").addEventListener("click", searchLisbon);
-
-// function searchParis(event) {
-//   event.preventDefault();
-//   searchCity("paris");
-//   document.querySelector("#search-input").setAttribute("value", "Paris");
-// }
-// document.querySelector("#paris").addEventListener("click", searchParis);
-
-// function searchLondon(event) {
-//   event.preventDefault();
-//   searchCity("london");
-//   document.querySelector("#search-input").setAttribute("value", "London");
-// }
-// document.querySelector("#london").addEventListener("click", searchLondon);
-
-// function searchWarsaw(event) {
-//   event.preventDefault();
-//   searchCity("warsaw");
-//   document.querySelector("#search-input").setAttribute("value", "Warsaw");
-// }
-// document.querySelector("#warsaw").addEventListener("click", searchWarsaw);
-
-// function searchPrague(event) {
-//   event.preventDefault();
-//   searchCity("prague");
-//   document.querySelector("#search-input").setAttribute("value", "Prague");
-// }
-// document.querySelector("#prague").addEventListener("click", searchPrague);
 
 //converter
 
@@ -244,13 +197,6 @@ function changeToMph(event) {
   document.querySelector("#wind-metrics").innerHTML = `mph`;
 }
 
-// function change5DaystoFahrenheit(event) {
-//   event.preventDefault();
-//   document.querySelector("#day2-temp").innerHTML = `${Math.round(
-//     (tempDay2 * 9) / 5 + 32
-//   )}°`;
-// }
-
 let fahrenheitButton = document.querySelector("#fahrenheit-link");
 fahrenheitButton.addEventListener("click", changeToFahrenheit);
 fahrenheitButton.addEventListener("click", changeToMph);
@@ -271,11 +217,6 @@ function changeToKmph(event) {
   document.querySelector("#wind").innerHTML = ` ${Math.round(windKmH)} `;
   document.querySelector("#wind-metrics").innerHTML = `km/h`;
 }
-
-// function change5DaystoCelcius(event) {
-//   event.preventDefault();
-//   document.querySelector("#day2-temp").innerHTML = `${Math.round(tempDay2)}°`;
-// }
 
 let celciusButton = document.querySelector("#celcius-link");
 celciusButton.addEventListener("click", changeToCelcius);
