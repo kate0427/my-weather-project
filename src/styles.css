@@ -55,6 +55,7 @@ body {
 .weatherDetails {
   font-size: 20px;
   margin: 20px 0 0 20px;
+  opacity: 0.8;
 }
 .mainWeatherImg {
   margin-top: 5%;
@@ -81,21 +82,22 @@ body {
 }
 .feelsLikeTemperature {
   font-size: 17px;
+  opacity: 0.8;
 }
 .daysWeatherCard {
   border-color: #f6eb9a;
   padding: 1% 0 1% 0;
+  font-size: 20px;
 }
-.day2Img,
-.day3Img,
-.day4Img,
-.day5Img,
-.day6Img {
-  margin: 3% 0 5% 0;
+.daysImg {
+  margin-bottom: 5%;
   width: 80px;
 }
-.tempMetrics {
-  font-size: 20px;
+.daysTempMin,
+.daysWeatherDate {
+  opacity: 0.8;
+}
+.daysTemperature {
   margin-bottom: 0;
 }
 
@@ -108,7 +110,7 @@ body {
 }
 a {
   text-decoration: none;
-  color: #5853bc;
+  color: #443eb4;
 }
 a:hover {
   text-decoration: underline;

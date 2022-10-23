@@ -77,10 +77,6 @@ let celciusTemperature = null;
 let feelsLikeTemperature = null;
 let windKmH = null;
 let tempDay2 = null;
-let tempDay3 = null;
-let tempDay4 = null;
-let tempDay5 = null;
-let tempDay6 = null;
 
 function showWeather(response) {
   document.querySelector("#current-city").innerHTML = response.data.name;
@@ -113,7 +109,7 @@ function showWeather(response) {
 
 function show5daysWeather(response) {
   tempDay2 = response.data.list[7].main.temp;
-  document.querySelector("#day2-temp").innerHTML = Math.round(tempDay2);
+  document.querySelector("#day2-temp").innerHTML = `${Math.round(tempDay2)}°`;
   document
     .querySelector("#day2-img")
     .setAttribute(
@@ -125,62 +121,6 @@ function show5daysWeather(response) {
     .setAttribute(
       "alt",
       `http://openweathermap.org/img/wn/${response.data.list[7].weather[0].description}@2x.png`
-    );
-  tempDay3 = response.data.list[15].main.temp;
-  document.querySelector("#day3-temp").innerHTML = Math.round(tempDay3);
-  document
-    .querySelector("#day3-img")
-    .setAttribute(
-      "src",
-      `http://openweathermap.org/img/wn/${response.data.list[15].weather[0].icon}@2x.png`
-    );
-  document
-    .querySelector("#day3-img")
-    .setAttribute(
-      "alt",
-      `http://openweathermap.org/img/wn/${response.data.list[15].weather[0].description}@2x.png`
-    );
-  tempDay4 = response.data.list[23].main.temp;
-  document.querySelector("#day4-temp").innerHTML = Math.round(tempDay4);
-  document
-    .querySelector("#day4-img")
-    .setAttribute(
-      "src",
-      `http://openweathermap.org/img/wn/${response.data.list[23].weather[0].icon}@2x.png`
-    );
-  document
-    .querySelector("#day4-img")
-    .setAttribute(
-      "alt",
-      `http://openweathermap.org/img/wn/${response.data.list[23].weather[0].description}@2x.png`
-    );
-  tempDay5 = response.data.list[31].main.temp;
-  document.querySelector("#day5-temp").innerHTML = Math.round(tempDay5);
-  document
-    .querySelector("#day5-img")
-    .setAttribute(
-      "src",
-      `http://openweathermap.org/img/wn/${response.data.list[31].weather[0].icon}@2x.png`
-    );
-  document
-    .querySelector("#day5-img")
-    .setAttribute(
-      "alt",
-      `http://openweathermap.org/img/wn/${response.data.list[31].weather[0].description}@2x.png`
-    );
-  tempDay6 = response.data.list[39].main.temp;
-  document.querySelector("#day6-temp").innerHTML = Math.round(tempDay6);
-  document
-    .querySelector("#day6-img")
-    .setAttribute(
-      "src",
-      `http://openweathermap.org/img/wn/${response.data.list[39].weather[0].icon}@2x.png`
-    );
-  document
-    .querySelector("#day6-img")
-    .setAttribute(
-      "alt",
-      `http://openweathermap.org/img/wn/${response.data.list[39].weather[0].description}@2x.png`
     );
 }
 
@@ -242,26 +182,9 @@ function changeToMph(event) {
 
 function change5DaystoFahrenheit(event) {
   event.preventDefault();
-  document.querySelector("#day2-temp").innerHTML = Math.round(
+  document.querySelector("#day2-temp").innerHTML = `${Math.round(
     (tempDay2 * 9) / 5 + 32
-  );
-  document.querySelector("#temp-metrics2").innerHTML = `℉`;
-  document.querySelector("#day3-temp").innerHTML = Math.round(
-    (tempDay3 * 9) / 5 + 32
-  );
-  document.querySelector("#temp-metrics3").innerHTML = `℉`;
-  document.querySelector("#day4-temp").innerHTML = Math.round(
-    (tempDay4 * 9) / 5 + 32
-  );
-  document.querySelector("#temp-metrics4").innerHTML = `℉`;
-  document.querySelector("#day5-temp").innerHTML = Math.round(
-    (tempDay5 * 9) / 5 + 32
-  );
-  document.querySelector("#temp-metrics5").innerHTML = `℉`;
-  document.querySelector("#day6-temp").innerHTML = Math.round(
-    (tempDay6 * 9) / 5 + 32
-  );
-  document.querySelector("#temp-metrics6").innerHTML = `℉`;
+  )}°`;
 }
 
 let fahrenheitButton = document.querySelector("#fahrenheit-link");
@@ -288,16 +211,7 @@ function changeToKmph(event) {
 
 function change5DaystoCelcius(event) {
   event.preventDefault();
-  document.querySelector("#day2-temp").innerHTML = Math.round(tempDay2);
-  document.querySelector("#temp-metrics2").innerHTML = `℃`;
-  document.querySelector("#day3-temp").innerHTML = Math.round(tempDay3);
-  document.querySelector("#temp-metrics3").innerHTML = `℃`;
-  document.querySelector("#day4-temp").innerHTML = Math.round(tempDay4);
-  document.querySelector("#temp-metrics4").innerHTML = `℃`;
-  document.querySelector("#day5-temp").innerHTML = Math.round(tempDay5);
-  document.querySelector("#temp-metrics5").innerHTML = `℃`;
-  document.querySelector("#day6-temp").innerHTML = Math.round(tempDay6);
-  document.querySelector("#temp-metrics6").innerHTML = `℃`;
+  document.querySelector("#day2-temp").innerHTML = `${Math.round(tempDay2)}°`;
 }
 
 let celciusButton = document.querySelector("#celcius-link");
