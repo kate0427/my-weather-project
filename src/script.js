@@ -107,6 +107,27 @@ function showWeather(response) {
     );
 }
 
+function displayDaysWeather() {
+  let daysWeather = document.querySelector("#days-weather");
+  let daysWeatherHTML = `<div class="row">`;
+  let days = ["Sun", "Mon", "Tue", "Wed", "Fri"];
+  days.forEach(function (day) {
+    daysWeatherHTML =
+      daysWeatherHTML +
+      `         <div class="col">
+              <div class="daysWeatherDate">${day}</div>
+              <img class="daysImg" alt="..." src="..." id="day2-img" />
+              <p class="daysTemperature">
+                <span class="daysTempMax" id="day2-temp"></span>
+                <span class="daysTempMin"> 12</span>
+              </p>
+              </div>`;
+  });
+
+  daysWeatherHTML = daysWeatherHTML + `</div>`;
+  daysWeather.innerHTML = daysWeatherHTML;
+}
+
 function show5daysWeather(response) {
   tempDay2 = response.data.list[7].main.temp;
   document.querySelector("#day2-temp").innerHTML = `${Math.round(tempDay2)}°`;
@@ -220,3 +241,4 @@ celciusButton.addEventListener("click", changeToKmph);
 celciusButton.addEventListener("click", change5DaystoCelcius);
 
 searchCity("Kyiv");
+displayDaysWeather();
