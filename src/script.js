@@ -109,7 +109,6 @@ function showWeather(response) {
 
   getDaysForecast(response.data.coord);
 }
-searchCity("Kyiv");
 
 function formatDays(timestamp) {
   let date = new Date(timestamp * 1000);
@@ -172,4 +171,5 @@ function displayCitiesLink(city) {
     document.querySelector(`#${city}`).addEventListener("click", searchCities);
   });
 }
+searchCity("Kyiv");
 displayCitiesLink();
