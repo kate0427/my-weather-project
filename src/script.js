@@ -107,32 +107,44 @@ function showWeather(response) {
     );
   document
     .querySelector("#current-icon")
-    .setAttribute(
-      "alt",
-      `http://openweathermap.org/img/wn/${response.data.weather[0].description}@2x.png`
-    );
+    .setAttribute("alt", `${response.data.weather[0].description}`);
 
   getDaysForecast(response.data.coord);
 }
 searchCity("Kyiv");
 
-function displayDaysWeather(response) {
-  console.log(response.data.daily);
-  let daysWeather = document.querySelector("#days-weather");
-  let days = ["Sun", "Mon", "Tue", "Wed", "Fri"];
-  let daysWeatherHTML = `<div class="row">`;
+function formatDays(timestamp) {
+  let date = new Date(timestamp * 1000);
+  let day = date.getDay();
+  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  return days[day];
+}
 
-  days.forEach(function (day) {
-    daysWeatherHTML =
-      daysWeatherHTML +
-      `         <div class="col">
-              <div class="daysWeatherDate">${day}</div>
-              <img class="daysImg" alt="..." src="..." id="day2-img" />
+function displayDaysWeather(response) {
+  let forecast = response.data.daily;
+  let daysWeather = document.querySelector("#days-weather");
+  let daysWeatherHTML = `<div class="row">`;
+  forecast.forEach(function (forecastDay, index) {
+    if (index < 5) {
+      daysWeatherHTML =
+        daysWeatherHTML +
+        `         <div class="col">
+              <div class="daysWeatherDate">${formatDays(forecastDay.dt)}</div>
+              <img class="daysImg" alt="${
+                forecastDay.weather[0].description
+              }" src="http://openweathermap.org/img/wn/${
+          forecastDay.weather[0].icon
+        }@2x.png" id="day2-img" />
               <p class="daysTemperature">
-                <span class="daysTempMax" id="day2-temp"></span>
-                <span class="daysTempMin"> 12</span>
+                <span class="daysTempMax" id="day2-temp">${Math.round(
+                  forecastDay.temp.max
+                )}°</span>
+                <span class="daysTempMin">${Math.round(
+                  forecastDay.temp.min
+                )}°</span>
               </p>
               </div>`;
+    }
   });
 
   daysWeatherHTML = daysWeatherHTML + `</div>`;
