@@ -70,9 +70,15 @@ function searchCity(city) {
   let units = "metric";
   let apiURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=${units}`;
   axios.get(`${apiURL}`).then(showWeather);
-  let apiURL5days = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=${units}`;
-  axios.get(`${apiURL5days}`).then(show5daysWeather);
+  // let apiURL5days = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=${units}`;
+  // axios.get(apiURL5days).then(show5daysWeather);
 }
+
+function getDaysForecast(coordinates) {
+  let apiDaysURL = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=96771e971243152d6b8948878c26adde&units=metric`;
+  axios.get(apiDaysURL).then(displayDaysWeather);
+}
+
 let celciusTemperature = null;
 let feelsLikeTemperature = null;
 let windKmH = null;
@@ -105,12 +111,17 @@ function showWeather(response) {
       "alt",
       `http://openweathermap.org/img/wn/${response.data.weather[0].description}@2x.png`
     );
-}
 
-function displayDaysWeather() {
+  getDaysForecast(response.data.coord);
+}
+searchCity("Kyiv");
+
+function displayDaysWeather(response) {
+  console.log(response.data.daily);
   let daysWeather = document.querySelector("#days-weather");
-  let daysWeatherHTML = `<div class="row">`;
   let days = ["Sun", "Mon", "Tue", "Wed", "Fri"];
+  let daysWeatherHTML = `<div class="row">`;
+
   days.forEach(function (day) {
     daysWeatherHTML =
       daysWeatherHTML +
@@ -128,57 +139,77 @@ function displayDaysWeather() {
   daysWeather.innerHTML = daysWeatherHTML;
 }
 
-function show5daysWeather(response) {
-  tempDay2 = response.data.list[7].main.temp;
-  document.querySelector("#day2-temp").innerHTML = `${Math.round(tempDay2)}°`;
-  document
-    .querySelector("#day2-img")
-    .setAttribute(
-      "src",
-      `http://openweathermap.org/img/wn/${response.data.list[7].weather[0].icon}@2x.png`
-    );
-  document
-    .querySelector("#day2-img")
-    .setAttribute(
-      "alt",
-      `http://openweathermap.org/img/wn/${response.data.list[7].weather[0].description}@2x.png`
-    );
-}
+// function show5daysWeather(response) {
+//   tempDay2 = response.data.list[7].main.temp;
+//   document.querySelector("#day2-temp").innerHTML = `${Math.round(tempDay2)}°`;
+//   document
+//     .querySelector("#day2-img")
+//     .setAttribute(
+//       "src",
+//       `http://openweathermap.org/img/wn/${response.data.list[7].weather[0].icon}@2x.png`
+//     );
+//   document
+//     .querySelector("#day2-img")
+//     .setAttribute(
+//       "alt",
+//       `http://openweathermap.org/img/wn/${response.data.list[7].weather[0].description}@2x.png`
+//     );
+// }
 
-function searchLisbon(event) {
-  event.preventDefault();
-  searchCity("lisbon");
-  document.querySelector("#search-input").setAttribute("value", "Lisbon");
-}
-document.querySelector("#city1-lisbon").addEventListener("click", searchLisbon);
+function displayCitiesLink(city) {
+  let citiesLinks = document.querySelector("#cities-link");
+  let cities = ["Lisbon", "Paris", "London", "Warsaw", "Prague"];
+  let citiesLinksHTML = `<div class="row">`;
+  cities.forEach(function (city) {
+    citiesLinksHTML =
+      citiesLinksHTML +
+      `                   <div class="col">
+            <a id=${city} href="">${city}</a></div>`;
+  });
 
-function searchParis(event) {
-  event.preventDefault();
-  searchCity("paris");
-  document.querySelector("#search-input").setAttribute("value", "Paris");
+  citiesLinksHTML = citiesLinksHTML + `</div>`;
+  citiesLinks.innerHTML = citiesLinksHTML;
 }
-document.querySelector("#city2-paris").addEventListener("click", searchParis);
+displayCitiesLink();
 
-function searchLondon(event) {
-  event.preventDefault();
-  searchCity("london");
-  document.querySelector("#search-input").setAttribute("value", "London");
-}
-document.querySelector("#city3-london").addEventListener("click", searchLondon);
+//cities function
 
-function searchWarsaw(event) {
-  event.preventDefault();
-  searchCity("warsaw");
-  document.querySelector("#search-input").setAttribute("value", "Warsaw");
-}
-document.querySelector("#city4-warsaw").addEventListener("click", searchWarsaw);
+// function searchLisbon(event) {
+//   event.preventDefault();
+//   searchCity("lisbon");
+//   document.querySelector("#search-input").setAttribute("value", "Lisbon");
+// }
+// document.querySelector("#lisbon").addEventListener("click", searchLisbon);
 
-function searchPrague(event) {
-  event.preventDefault();
-  searchCity("prague");
-  document.querySelector("#search-input").setAttribute("value", "Prague");
-}
-document.querySelector("#city5-prague").addEventListener("click", searchPrague);
+// function searchParis(event) {
+//   event.preventDefault();
+//   searchCity("paris");
+//   document.querySelector("#search-input").setAttribute("value", "Paris");
+// }
+// document.querySelector("#paris").addEventListener("click", searchParis);
+
+// function searchLondon(event) {
+//   event.preventDefault();
+//   searchCity("london");
+//   document.querySelector("#search-input").setAttribute("value", "London");
+// }
+// document.querySelector("#london").addEventListener("click", searchLondon);
+
+// function searchWarsaw(event) {
+//   event.preventDefault();
+//   searchCity("warsaw");
+//   document.querySelector("#search-input").setAttribute("value", "Warsaw");
+// }
+// document.querySelector("#warsaw").addEventListener("click", searchWarsaw);
+
+// function searchPrague(event) {
+//   event.preventDefault();
+//   searchCity("prague");
+//   document.querySelector("#search-input").setAttribute("value", "Prague");
+// }
+// document.querySelector("#prague").addEventListener("click", searchPrague);
+
+//converter
 
 function changeToFahrenheit(event) {
   event.preventDefault();
@@ -201,17 +232,16 @@ function changeToMph(event) {
   document.querySelector("#wind-metrics").innerHTML = `mph`;
 }
 
-function change5DaystoFahrenheit(event) {
-  event.preventDefault();
-  document.querySelector("#day2-temp").innerHTML = `${Math.round(
-    (tempDay2 * 9) / 5 + 32
-  )}°`;
-}
+// function change5DaystoFahrenheit(event) {
+//   event.preventDefault();
+//   document.querySelector("#day2-temp").innerHTML = `${Math.round(
+//     (tempDay2 * 9) / 5 + 32
+//   )}°`;
+// }
 
 let fahrenheitButton = document.querySelector("#fahrenheit-link");
 fahrenheitButton.addEventListener("click", changeToFahrenheit);
 fahrenheitButton.addEventListener("click", changeToMph);
-fahrenheitButton.addEventListener("click", change5DaystoFahrenheit);
 
 function changeToCelcius(event) {
   event.preventDefault();
@@ -230,15 +260,11 @@ function changeToKmph(event) {
   document.querySelector("#wind-metrics").innerHTML = `km/h`;
 }
 
-function change5DaystoCelcius(event) {
-  event.preventDefault();
-  document.querySelector("#day2-temp").innerHTML = `${Math.round(tempDay2)}°`;
-}
+// function change5DaystoCelcius(event) {
+//   event.preventDefault();
+//   document.querySelector("#day2-temp").innerHTML = `${Math.round(tempDay2)}°`;
+// }
 
 let celciusButton = document.querySelector("#celcius-link");
 celciusButton.addEventListener("click", changeToCelcius);
 celciusButton.addEventListener("click", changeToKmph);
-celciusButton.addEventListener("click", change5DaystoCelcius);
-
-searchCity("Kyiv");
-displayDaysWeather();
