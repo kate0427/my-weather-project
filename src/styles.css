@@ -72,14 +72,6 @@ body {
 .tempFigure {
   font-size: 40px;
 }
-.active {
-  color: #1c0c59;
-  cursor: default;
-}
-.active:hover {
-  text-decoration: none;
-  color: #1c0c59;
-}
 .feelsLikeTemperature {
   font-size: 17px;
   opacity: 0.8;
